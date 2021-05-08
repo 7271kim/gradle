@@ -5,3 +5,6 @@
  - 중위 순회(inorder) : 좌 -> root -> 우
  - 전위 순회(preorder) : root -> 좌 -> 우
  - 후위 순회(postorder) : 좌 -> 우 -> root
+
+### 2.MaxHeap, MinHeap
+ - add, getSortedList

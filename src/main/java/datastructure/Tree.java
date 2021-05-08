@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Tree<T> {
 
-    private ArrayList<T> tree;
+    protected ArrayList<T> tree;
 
     public Tree() {
         tree = new ArrayList<T>();
@@ -68,24 +68,40 @@ public class Tree<T> {
         }
     }
 
-    private boolean hasRightNode(int currentIndex) {
+    protected boolean hasRightNode(int currentIndex) {
         return hasNode(getRightNodeIndex(currentIndex));
     }
 
-    private boolean hasLeftNode(int index) {
+    protected boolean hasLeftNode(int index) {
         return hasNode(getLeftNodeIndex(index));
     }
 
-    private int getLeftNodeIndex(int currentIndex) {
+    protected int getLeftNodeIndex(int currentIndex) {
         return currentIndex * 2 + 1;
     }
 
-    private int getRightNodeIndex(int currentIndex) {
+    protected int getRightNodeIndex(int currentIndex) {
         return currentIndex * 2 + 2;
     }
 
-    private boolean hasNode(int currentIndex) {
+    protected int getParentNodeIndex(int currentIndex) {
+        return currentIndex - 1 < 0 ? -1 : (currentIndex - 1) / 2;
+    }
+
+    protected boolean hasNode(int currentIndex) {
         return 0 <= currentIndex && currentIndex < tree.size() && null != tree.get(currentIndex);
+    }
+
+    protected boolean hasPrarent(int currentIndex) {
+        return hasNode(getParentNodeIndex(currentIndex));
+    }
+
+    public ArrayList<T> getTree() {
+        return tree;
+    }
+
+    public boolean isEmpty() {
+        return tree.size() == 0;
     }
 
 }
