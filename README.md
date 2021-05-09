@@ -8,3 +8,6 @@
 
 ### 2.MaxHeap, MinHeap
  - add, getSortedList
+
+### 3.GrapWithList, GrapWithMatrix
+ - add, addDirection, dfs, bfs
