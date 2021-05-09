@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 public class HeapTest {
     private MaxHeap<Integer> maxHeap;
-    private MinHeap minHeap;
+    private MinHeap<Integer> minHeap;
 
     @BeforeEach
     public void setMaxHeapUp() {
@@ -26,7 +26,7 @@ public class HeapTest {
 
     @BeforeEach
     public void setMinHeapUp() {
-        minHeap = new MinHeap();
+        minHeap = new MinHeap<>();
         minHeap.add(3);
         minHeap.add(1);
         minHeap.add(2);
@@ -42,9 +42,23 @@ public class HeapTest {
     }
 
     @Test
+    @DisplayName("MinHeap 테스트")
+    public void minHeapTest() {
+        List<Integer> result = new ArrayList<>(Arrays.asList(1, 3, 2, 5, 4));
+        assertThat(minHeap.getTree()).isEqualTo(result);
+    }
+
+    @Test
     @DisplayName("MaxHeap getSortedList테스트")
-    public void getSortedListTest() {
+    public void maxSortedListTest() {
         List<Integer> result = new ArrayList<>(Arrays.asList(5, 4, 3, 2, 1));
         assertThat(maxHeap.getSortedList()).isEqualTo(result);
+    }
+
+    @Test
+    @DisplayName("MinHeap getSortedList테스트")
+    public void minSortedListTest() {
+        List<Integer> result = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
+        assertThat(minHeap.getSortedList()).isEqualTo(result);
     }
 }

@@ -30,13 +30,6 @@ public class MaxHeap<T extends Comparable<T>> extends Tree<T> {
         }
     }
 
-    private void swapNode(int beforeIndex, int afterIndex) {
-        T beforeData = tree.get(beforeIndex);
-        T afterData = tree.get(afterIndex);
-        tree.set(beforeIndex, afterData);
-        tree.set(afterIndex, beforeData);
-    }
-
     private void extractRoot(List<T> result) {
         while (!isEmpty()) {
             swapRootAndLastChild(result);

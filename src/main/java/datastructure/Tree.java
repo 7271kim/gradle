@@ -96,6 +96,13 @@ public class Tree<T> {
         return hasNode(getParentNodeIndex(currentIndex));
     }
 
+    protected void swapNode(int beforeIndex, int afterIndex) {
+        T beforeData = tree.get(beforeIndex);
+        T afterData = tree.get(afterIndex);
+        tree.set(beforeIndex, afterData);
+        tree.set(afterIndex, beforeData);
+    }
+
     public ArrayList<T> getTree() {
         return tree;
     }

@@ -12,6 +12,7 @@
 .project
 .settings
 .springBeans
+.classpth
 bin/
 
 ### IntelliJ IDEA ###
