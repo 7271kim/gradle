@@ -29,21 +29,21 @@ public class GrapWithList {
 		graph.get(startNodeIndex).add(nodeEndWeight);
 	}
 
-	public List<Integer> dfs(Integer findeIndex) {
+	public List<Integer> dfs(Integer findIndex) {
 		List<Integer> result = new ArrayList<Integer>();
 		Stack<Integer> stack = new Stack<>();
 		boolean[] cached = new boolean[graph.size()];
-		stack.add(findeIndex);
+		stack.add(findIndex);
 		checkDfsEdges(result, stack, cached);
 
 		return result;
 	}
 
-	public List<Integer> bfs(Integer findeIndex) {
+	public List<Integer> bfs(Integer findIndex) {
 		List<Integer> result = new ArrayList<Integer>();
 		Queue<Integer> que = new ArrayDeque<>();
 		boolean[] cached = new boolean[graph.size()];
-		que.add(findeIndex);
+		que.add(findIndex);
 		checkBfsEdges(result, que, cached);
 
 		return result;
