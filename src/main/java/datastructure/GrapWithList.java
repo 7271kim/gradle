@@ -8,7 +8,7 @@ import java.util.Stack;
 
 public class GrapWithList {
 
-	private List<List<NodeWeight>> graph;
+	private List<List<Edge>> graph;
 
 	public GrapWithList(int nodeCount) {
 		graph = new ArrayList<>();
@@ -18,14 +18,14 @@ public class GrapWithList {
 	}
 
 	public void add(Integer startNodeIndex, Integer endNodeIndex, int weight) {
-		NodeWeight nodeEndWeight = new NodeWeight(endNodeIndex, weight);
-		NodeWeight nodeStartWeight = new NodeWeight(startNodeIndex, weight);
+		Edge nodeEndWeight = new Edge(endNodeIndex, weight);
+		Edge nodeStartWeight = new Edge(startNodeIndex, weight);
 		graph.get(startNodeIndex).add(nodeEndWeight);
 		graph.get(endNodeIndex).add(nodeStartWeight);
 	}
 
 	public void addDirection(Integer startNodeIndex, Integer endNodeIndex, int weight) {
-		NodeWeight nodeEndWeight = new NodeWeight(endNodeIndex, weight);
+		Edge nodeEndWeight = new Edge(endNodeIndex, weight);
 		graph.get(startNodeIndex).add(nodeEndWeight);
 	}
 
@@ -55,8 +55,8 @@ public class GrapWithList {
 			if (!cached[topIndex]) {
 				cached[topIndex] = true;
 				result.add(topIndex);
-				for (NodeWeight nodeWeight : graph.get(topIndex)) {
-					que.add(nodeWeight.getEndIndex());
+				for (Edge Edge : graph.get(topIndex)) {
+					que.add(Edge.getEndIndex());
 				}
 				checkBfsEdges(result, que, cached);
 			}
@@ -69,8 +69,8 @@ public class GrapWithList {
 			if (!cached[topIndex]) {
 				result.add(topIndex);
 				cached[topIndex] = true;
-				for (NodeWeight nodeWeight : graph.get(topIndex)) {
-					stack.add(nodeWeight.endNodeIndex);
+				for (Edge Edge : graph.get(topIndex)) {
+					stack.add(Edge.endNodeIndex);
 					checkDfsEdges(result, stack, cached);
 				}
 			}
@@ -79,8 +79,8 @@ public class GrapWithList {
 
 	protected boolean isConected(Integer startNodeIndex, Integer endNodeIndex) {
 		boolean result = false;
-		List<NodeWeight> startEdges = graph.get(startNodeIndex);
-		for (NodeWeight node : startEdges) {
+		List<Edge> startEdges = graph.get(startNodeIndex);
+		for (Edge node : startEdges) {
 			if (node.getEndIndex() == endNodeIndex) {
 				result = true;
 				break;
@@ -89,11 +89,11 @@ public class GrapWithList {
 		return result;
 	}
 
-	public static class NodeWeight implements Comparable<NodeWeight> {
+	public static class Edge implements Comparable<Edge> {
 		int endNodeIndex;
 		int weight;
 
-		public NodeWeight(int endNodeIndex, int weight) {
+		public Edge(int endNodeIndex, int weight) {
 			this.endNodeIndex = endNodeIndex;
 			this.weight = weight;
 		}
@@ -107,7 +107,7 @@ public class GrapWithList {
 		}
 
 		@Override
-		public int compareTo(NodeWeight compare) {
+		public int compareTo(Edge compare) {
 			return weight >= compare.getWeight() ? 1 : -1;
 		}
 	}
