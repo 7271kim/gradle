@@ -11,3 +11,6 @@
 
 ### 3.GrapWithList, GrapWithMatrix
  - add, addDirection, dfs, bfs
+
+### 4. Trie
+ - insert, contains, delete
