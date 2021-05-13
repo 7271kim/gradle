@@ -24,6 +24,7 @@ public class DijkstraTest {
         stores.put("D", 4);
         stores.put("E", 5);
         stores.put("F", 6);
+        stores.put("G", 7);
 
         graphWithList = new GrapWithList(stores.size());
         graphWithList.addDirection(stores.get("A"), stores.get("B"), 10);
@@ -63,5 +64,9 @@ public class DijkstraTest {
         result = graphWithList.dijkstraMin(stores.get("A"), stores.get("E"));
         assertThat(result.getWeight()).isEqualTo(30);
         assertThat(result.getPathList()).isEqualTo(new ArrayList<>(Arrays.asList(1, 2, 5)));
+
+        result = graphWithList.dijkstraMin(stores.get("A"), stores.get("G"));
+        assertThat(result.getWeight()).isEqualTo(Integer.MAX_VALUE);
+        assertThat(result.getPathList()).isEqualTo(new ArrayList<>(Arrays.asList()));
     }
 }
