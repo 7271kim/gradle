@@ -44,11 +44,11 @@ public class GraphTest {
     @Test
     @DisplayName("인접리스트 가중치 그래프 구현")
     public void createGrapWithListTest() {
-        assertThat(graphWithList.isConected(stores.get("엽떡"), stores.get("갑떡"))).isEqualTo(true);
-        assertThat(graphWithList.isConected(stores.get("엽떡"), stores.get("그떡"))).isEqualTo(false);
-        assertThat(graphWithList.isConected(stores.get("그떡"), stores.get("갑떡"))).isEqualTo(false);
-        assertThat(graphWithList.isConected(stores.get("갑떡"), stores.get("그떡"))).isEqualTo(true);
-        assertThat(graphWithList.isConected(stores.get("그떡"), stores.get("호떡"))).isEqualTo(true);
+        assertThat(graphWithList.isDirectConected(stores.get("엽떡"), stores.get("갑떡"))).isEqualTo(true);
+        assertThat(graphWithList.isDirectConected(stores.get("엽떡"), stores.get("그떡"))).isEqualTo(false);
+        assertThat(graphWithList.isDirectConected(stores.get("그떡"), stores.get("갑떡"))).isEqualTo(false);
+        assertThat(graphWithList.isDirectConected(stores.get("갑떡"), stores.get("그떡"))).isEqualTo(true);
+        assertThat(graphWithList.isDirectConected(stores.get("그떡"), stores.get("호떡"))).isEqualTo(true);
     }
 
     @Test
