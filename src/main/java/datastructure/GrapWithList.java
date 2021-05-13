@@ -2,15 +2,12 @@ package datastructure;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Stack;
 
 public class GrapWithList {
 
-    private static final int MAX_VALUE = Integer.MAX_VALUE;
     private List<List<Edge>> graph;
 
     public GrapWithList(int nodeCount) {
@@ -114,94 +111,4 @@ public class GrapWithList {
             return weight >= compare.getWeight() ? 1 : -1;
         }
     }
-
-    public MinMaxGraphResult dijkstraMin(Integer startNodeIndex, Integer endNodeIndex) {
-        boolean[] visitedNode = new boolean[graph.size()];
-        int[] path = new int[graph.size()];
-        int[] dijkstra = initDijkstraZeroOrMaxValue(startNodeIndex);
-        PriorityQueue<Edge> priQue = new PriorityQueue<>();
-
-        setStartNode(startNodeIndex, visitedNode, priQue, dijkstra);
-        loopUntileQueEmpt(visitedNode, path, dijkstra, priQue);
-
-        return getMinWeightAndPathList(startNodeIndex, endNodeIndex, dijkstra, path);
-    }
-
-    private MinMaxGraphResult getMinWeightAndPathList(Integer startNodeIndex, Integer endNodeIndex, int[] dijkstra,
-            int[] path) {
-        MinMaxGraphResult result = new MinMaxGraphResult();
-        List<Integer> pathList = getPathListStartToEnd(startNodeIndex, endNodeIndex, dijkstra, path);
-        result.setWeight(dijkstra[endNodeIndex]);
-        result.setPathList(pathList);
-
-        return result;
-    }
-
-    private List<Integer> getPathListStartToEnd(Integer startNodeIndex, Integer endNodeIndex, int[] dijkstra,
-            int[] path) {
-        List<Integer> pathList = new ArrayList<>();
-        if (isConected(dijkstra, endNodeIndex)) {
-            pathList.add(endNodeIndex);
-            if (startNodeIndex != endNodeIndex) {
-                while (startNodeIndex != path[endNodeIndex]) {
-                    pathList.add(path[endNodeIndex]);
-                    endNodeIndex = path[endNodeIndex];
-                }
-                pathList.add(startNodeIndex);
-            }
-        }
-        Collections.reverse(pathList);
-        return pathList;
-    }
-
-    private boolean isConected(int[] dijkstra, Integer endNodeIndex) {
-        return dijkstra[endNodeIndex] != MAX_VALUE;
-    }
-
-    private void setStartNode(Integer startNodeIndex, boolean[] visitedNode, PriorityQueue<Edge> priQue,
-            int[] dijkstra) {
-        priQue.add(new Edge(startNodeIndex, dijkstra[startNodeIndex]));
-    }
-
-    private void loopUntileQueEmpt(boolean[] visitedNode, int[] path, int[] dijkstra, PriorityQueue<Edge> priQue) {
-        while (!priQue.isEmpty()) {
-            Edge top = priQue.poll();
-            visitedNode[top.getEndIndex()] = true;
-
-            for (Edge neighborhood : graph.get(top.endNodeIndex)) {
-                updatePathAndDijkstra(neighborhood, path, dijkstra, top);
-                updateVisitedNode(neighborhood, visitedNode, priQue, dijkstra);
-            }
-        }
-    }
-
-    private void updateVisitedNode(Edge neighborhood, boolean[] visitedNode, PriorityQueue<Edge> priQue,
-            int[] dijkstra) {
-        if (!visitedNode[neighborhood.getEndIndex()]) {
-            priQue.add(new Edge(neighborhood.getEndIndex(), dijkstra[neighborhood.getEndIndex()]));
-        }
-    }
-
-    private void updatePathAndDijkstra(Edge neighborhood, int[] path, int[] dijkstra, Edge top) {
-        int currentWeight = dijkstra[neighborhood.getEndIndex()];
-        int newWeight = dijkstra[top.getEndIndex()] + neighborhood.getWeight();
-
-        if (currentWeight > newWeight) {
-            dijkstra[neighborhood.getEndIndex()] = newWeight;
-            path[neighborhood.getEndIndex()] = top.getEndIndex();
-        }
-    }
-
-    private int[] initDijkstraZeroOrMaxValue(Integer startNodeIndex) {
-        int[] result = new int[graph.size()];
-        for (int index = 0; index < graph.size(); index++) {
-            if (startNodeIndex == index) {
-                result[index] = 0;
-            } else {
-                result[index] = MAX_VALUE;
-            }
-        }
-        return result;
-    }
-
 }

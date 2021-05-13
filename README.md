@@ -19,3 +19,8 @@
  - 노드들간 최소 가중치가 되도록 경로찾기
  - dijkstraMin(시작노드 index, 찾고자 하는 노드 index)
  - MinMaxGraphResult > 최소가중치와 경로 집합 반환
+
+### 6. Graph에 bellmanMin 알고리즘 추가
+ - 음수가 존재하여도 최소 가중치 경로 찾기 가능.
+ - bellmanMin(시작노드 index, 찾고자 하는 노드 index)
+ - MinMaxGraphResult > 최소가중치와 경로 집합 반환

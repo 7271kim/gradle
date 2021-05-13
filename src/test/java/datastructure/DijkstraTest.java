@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 public class DijkstraTest {
 
-    private GrapWithList graphWithList;
+    private GrapWithListDijkstra graphWithList;
     private HashMap<String, Integer> stores;
 
     @BeforeEach
@@ -26,7 +26,7 @@ public class DijkstraTest {
         stores.put("F", 6);
         stores.put("G", 7);
 
-        graphWithList = new GrapWithList(stores.size());
+        graphWithList = new GrapWithListDijkstra(stores.size());
         graphWithList.addDirection(stores.get("A"), stores.get("B"), 10);
         graphWithList.addDirection(stores.get("A"), stores.get("C"), 30);
         graphWithList.addDirection(stores.get("A"), stores.get("D"), 15);
