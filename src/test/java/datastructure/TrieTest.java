@@ -50,12 +50,12 @@ public class TrieTest {
     @Test
     @DisplayName("remove 테스트")
     public void remoceTest() {
-        assertThat(trie.contains("frienddd")).isEqualTo(true);
-        trie.remove("friendd");
-        assertThat(trie.contains("frienddd")).isEqualTo(false);
         assertThat(trie.contains("friendd")).isEqualTo(true);
+        trie.remove("friendd");
+        assertThat(trie.contains("friendd")).isEqualTo(false);
+        assertThat(trie.contains("frienddd")).isEqualTo(true);
         assertThat(trie.contains("friend")).isEqualTo(true);
-        assertThat(trie.contains("friends")).isEqualTo(true);
+        assertThat(trie.contains("friends")).isEqualTo(false);
 
     }
 }

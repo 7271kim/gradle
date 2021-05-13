@@ -27,25 +27,72 @@ public class Trie {
     }
 
     public boolean contains(String text) {
-        boolean result = true;
         TrieNode lastNode = root;
+        boolean isLastIndex = isLastIndex(text, lastNode);
+        lastNode = getLastNodeAndSetParent(text, lastNode);
+
+        return isLastIndex && lastNode.isLast();
+    }
+
+    private boolean isLastIndex(String text, TrieNode lastNode) {
+        for (int index = 0; index < text.length(); index++) {
+            char oneWord = text.charAt(index);
+            if (!lastNode.hasChild(oneWord)) {
+                return false;
+            }
+            lastNode = lastNode.getChild(oneWord);
+        }
+        return true;
+    }
+
+    private TrieNode getLastNodeAndSetParent(String text, TrieNode lastNode) {
         for (int index = 0; index < text.length(); index++) {
             char oneWord = text.charAt(index);
             if (lastNode.hasChild(oneWord)) {
+                TrieNode parent = lastNode;
                 lastNode = lastNode.getChild(oneWord);
+                lastNode.setParent(parent);
+                lastNode.setThisChar(oneWord);
             } else {
-                result = false;
                 break;
             }
         }
-
-        return result && lastNode.isLast();
+        return lastNode;
     }
 
-    public void remove(String text) {}
+    public void remove(String text) {
+        if (contains(text)) {
+            TrieNode lastNode = root;
+            lastNode = getLastNodeAndSetParent(text, lastNode);
+            removeLastNode(lastNode);
+            removeCheck(lastNode);
+        }
+
+    }
+
+    private void removeLastNode(TrieNode lastNode) {
+        if (!lastNode.hasChildren()) {
+            removeFromParent(lastNode);
+        } else {
+            lastNode.setLast(false);
+        }
+    }
+
+    private void removeCheck(TrieNode lastNode) {
+        if (!lastNode.hasChildren() && !lastNode.isLast()) {
+            removeFromParent(lastNode);
+        }
+    }
+
+    private void removeFromParent(TrieNode lastNode) {
+        TrieNode parent = lastNode.getParent();
+        parent.removeChild(lastNode.getThisChar());
+    }
 
     public static class TrieNode {
         boolean isLast;
+        TrieNode parent;
+        Character thisChar;
         Map<Character, TrieNode> children;
 
         public TrieNode() {
@@ -81,6 +128,25 @@ public class Trie {
             children.remove(oneChar);
         }
 
+        public boolean hasChildren() {
+            return null != children && children.size() > 0;
+        }
+
+        public TrieNode getParent() {
+            return parent;
+        }
+
+        public void setParent(TrieNode parent) {
+            this.parent = parent;
+        }
+
+        public Character getThisChar() {
+            return thisChar;
+        }
+
+        public void setThisChar(Character thisChar) {
+            this.thisChar = thisChar;
+        }
     }
 
     protected TrieNode getRoot() {
